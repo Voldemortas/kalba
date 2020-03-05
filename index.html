@@ -2,6 +2,10 @@
   table {
     font-size: 40px;
   }
+  td,
+  th {
+    padding: 5px;
+  }
   span {
     color: cornflowerblue;
   }
@@ -26,10 +30,9 @@
   variants = variants.map((e) =>
     e.map(
       (d, i) =>
-        d +
-        `<audio hidden id="${d +
-          i}"><source src="${d}.wav" type="audio/wav" /></audio><br /><span onclick="listen('${d +
-          i}')">Listen</span>`
+        `<span onclick="listen('${d + i}')">${d}
+        <audio hidden id="${d +
+          i}"><source src="${d}.wav" type="audio/wav" /></audio></span>`
     )
   )
   const table = Array.from(Array(cases.length)).map((a, i) => [
