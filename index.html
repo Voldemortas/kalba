@@ -1,0 +1,47 @@
+<style>
+  table {
+    font-size: 40px;
+  }
+  span {
+    color: cornflowerblue;
+  }
+  span:hover {
+    cursor: pointer;
+  }
+</style>
+<table border="1" id="table">
+  <tr>
+    <th></th>
+    <th>Singular</th>
+    <th>Plural</th>
+  </tr>
+</table>
+
+<script>
+  const cases = ['Nom', 'Gen', 'Dat', 'Acc', 'Inst', 'Loc', 'Voc']
+  let variants = [
+    ['Kalbà', 'Kalbõs', 'Kal̃bai', 'Kal̃bą', 'Kalbà', 'Kalbojè', 'Kal̃ba'],
+    ['Kal̃boːs', 'Kalbų̃', 'Kalbóms', 'Kalbàs', 'Kalbomìs', 'Kalbosè', 'Kal̃boˑs'],
+  ]
+  variants = variants.map((e) =>
+    e.map(
+      (d, i) =>
+        d +
+        `<audio hidden id="${d +
+          i}"><source src="${d}.wav" type="audio/wav" /></audio><br /><span onclick="listen('${d +
+          i}')">Listen</span>`
+    )
+  )
+  const table = Array.from(Array(cases.length)).map((a, i) => [
+    cases[i],
+    variants[0][i],
+    variants[1][i],
+  ])
+  document.getElementById('table').innerHTML += table.reduce(
+    (a, b) => `${a}<tr>${b.reduce((c, d) => `${c}<td>${d}</td>`, '')}</tr>`,
+    ''
+  )
+  function listen(id) {
+    document.getElementById(id).play()
+  }
+</script>
